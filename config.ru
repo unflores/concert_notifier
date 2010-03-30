@@ -2,13 +2,23 @@ require 'rubygems'
 require 'sinatra'
 require 'Haml'
 require 'yaml'
+require 'dm-core'
 
-pants = ''
+
+db = {}
 configure :development do
-  pants = 'yes'
+   DataMapper::Logger.new($stdout, :debug)
+   YAML.load_file('./data/development_database_config.yml').each { |key, value| db[key.to_sym] = value||'' }
+   DataMapper.setup(:default, "#{db[:adapter]}://#{db[:username]}@localhost/#{db[:database]}")
+   DataMapper.auto_migrate!
 end
 
-puts pants + 'and default'
+configure :production do
+  # YAML.load_file().each { |key, value| @options[key.to_sym] = value }
+end
+
+require 'data/models'
+
 
 require 'main'
  
