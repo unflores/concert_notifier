@@ -1,2 +1,11 @@
 %div#description
 	Concert Notifier is an application that will notify you when a band is playing in your city. There are a few steps involved to get started, but hey, it's free!
+	
+%div#band_listings
+	%h3 Current bands you are following:
+	
+	%table
+		- @bands.each do |band|
+			%tr
+				%td
+					= band.name
