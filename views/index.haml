@@ -3,9 +3,9 @@
 	
 %div#band_listings
 	%h3 Current bands you are following:
-	
-	%table
-		- @bands.each do |band|
-			%tr
-				%td
-					= band.name
+	- unless @bands.nil?
+		%table
+			- @bands.each do |band|
+				%tr
+					%td
+						= band.name
